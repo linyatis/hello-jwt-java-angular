@@ -1,0 +1,32 @@
+*.class
+
+*target*
+
+*lib*
+
+# Package Files #
+*.jar
+*.war
+
+# eclipse specific git ignore
+*.pydevproject
+*.project
+*.tern-project
+*.metadata
+*MANIFEST.MF
+*.MF
+bin/**
+tmp/**
+tmp/**/*
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+*.classpath
+*.settings/
+*.loadpath
+*.factorypath
+
+# Locally stored "Eclipse launch configurations"
+*.launch
