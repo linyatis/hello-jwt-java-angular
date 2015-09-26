@@ -24,19 +24,23 @@ public class LoginServlet extends HttpServlet {
 
 	private static final String username = "admin";
 	private static final String password = "abc123";
+	private Gson gson = new Gson();
 
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
 		User userRequest = getUserFromRequest(request);
 		String token = null;
 
 		if (username.equals(userRequest.getUsername())
 				&& password.equals(userRequest.getPassword())) {
+			
 			token = JWTUtil.createToken(username);
-
+			
 			response.setHeader("authorization", token);
 			response.setStatus(HttpServletResponse.SC_OK);
+			response.getWriter().println(gson.toJson(new Token(token)));
 		} else {
 			String jsonStr = "{\"msg\": \"Username or password incorrect.\"}";
 
@@ -50,9 +54,16 @@ public class LoginServlet extends HttpServlet {
 
 	private User getUserFromRequest(HttpServletRequest request)
 			throws ServletException, IOException {
-		BufferedReader reader = request.getReader();
-		Gson gson = new Gson();
 
+		BufferedReader reader = request.getReader();		
 		return gson.fromJson(reader, User.class);
+	}
+	
+	class Token {
+		final String token;
+		
+		public Token(String token) {
+			this.token = token;
+		}
 	}
 }
