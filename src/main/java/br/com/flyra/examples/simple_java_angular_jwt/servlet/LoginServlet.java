@@ -16,7 +16,7 @@ import br.com.flyra.examples.simple_java_angular_jwt.util.JWTUtil;
 
 import com.google.gson.Gson;
 
-@WebServlet("/login")
+@WebServlet("/api/login")
 public class LoginServlet extends HttpServlet {
 
 	/**
