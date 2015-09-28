@@ -35,12 +35,12 @@ public class LoginServlet extends HttpServlet {
 
 		if (username.equals(userRequest.getUsername())
 				&& password.equals(userRequest.getPassword())) {
-			
+
 			token = JWTUtil.createToken(username);
-			
+
 			response.setHeader("authorization", token);
 			response.setStatus(HttpServletResponse.SC_OK);
-			response.getWriter().println(gson.toJson(new Token(token)));
+			response.getWriter().print(token);
 		} else {
 			String jsonStr = "{\"msg\": \"Username or password incorrect.\"}";
 
@@ -55,15 +55,8 @@ public class LoginServlet extends HttpServlet {
 	private User getUserFromRequest(HttpServletRequest request)
 			throws ServletException, IOException {
 
-		BufferedReader reader = request.getReader();		
+		BufferedReader reader = request.getReader();
 		return gson.fromJson(reader, User.class);
 	}
-	
-	class Token {
-		final String token;
-		
-		public Token(String token) {
-			this.token = token;
-		}
-	}
+
 }
