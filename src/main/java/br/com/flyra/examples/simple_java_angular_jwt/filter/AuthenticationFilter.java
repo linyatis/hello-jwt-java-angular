@@ -1,9 +1,7 @@
 package br.com.flyra.examples.simple_java_angular_jwt.filter;
 
 import java.io.IOException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.security.SignatureException;
+import java.util.Map;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -17,8 +15,6 @@ import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
 
 import br.com.flyra.examples.simple_java_angular_jwt.util.JWTUtil;
-
-import com.auth0.jwt.JWTVerifyException;
 
 @WebFilter(urlPatterns = "/api/*")
 public class AuthenticationFilter implements Filter {
@@ -34,6 +30,8 @@ public class AuthenticationFilter implements Filter {
 			throws ServletException, IOException {
 		final HttpServletRequest httpRequest = (HttpServletRequest) request;
 		final HttpServletResponse httpResponse = (HttpServletResponse) response;
+		// System.out.println(((HttpServletRequest)
+		// request).getHeader("authorization"));
 		HttpServletRequestWrapper wrapper = new HttpServletRequestWrapper(
 				httpRequest) {
 			@Override
@@ -49,14 +47,9 @@ public class AuthenticationFilter implements Filter {
 		String token = wrapper.getHeader("authorization");
 
 		if (token != null) {
-			try {
-				JWTUtil.decode(token);
-				chain.doFilter(wrapper, response);
-			} catch (InvalidKeyException | NoSuchAlgorithmException
-					| IllegalStateException | SignatureException
-					| JWTVerifyException e) {
-				sendError(httpResponse, e.getLocalizedMessage());
-			}
+			Map<String, Object> decode = JWTUtil.decode(token);
+			decode.forEach((k, v) -> System.out.printf(k, v));
+			chain.doFilter(wrapper, response);	
 		} else {
 			sendError(httpResponse);
 		}
