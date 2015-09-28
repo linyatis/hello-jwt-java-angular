@@ -14,7 +14,7 @@
 		return service;
 		
 		function post(body) {
-			return $http.post('/simple-java-angular-jwt/login', JSON.stringify(body));
+			return $http.post('/simple-java-angular-jwt/api/login', JSON.stringify(body));
 		}
 		
 		function get(url) {
