@@ -33,24 +33,28 @@ public class AuthenticationFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws ServletException, IOException {
-
 		httpRequest = (HttpServletRequest) request;
 		httpResponse = (HttpServletResponse) response;
 
-		String token = httpRequest.getHeader("authorization");
+		String path = httpRequest.getRequestURI();
 
-		if (token != null) {
-			try {
-				JWTUtil.decode(token);
-				chain.doFilter(httpRequest, response);
-			} catch (TokenException e) {
-				sendError(e.getLocalizedMessage());
-			}
-
+		if (path.endsWith("login")) {
+			chain.doFilter(httpRequest, response);
 		} else {
-			sendError();
-		}
+			String token = httpRequest.getHeader("authorization");
 
+			if (token != null) {
+				try {
+					JWTUtil.decode(token);
+					chain.doFilter(httpRequest, httpResponse);
+				} catch (TokenException e) {
+					sendError(e.getLocalizedMessage());
+				}
+
+			} else {
+				sendError();
+			}
+		}
 	}
 
 	@Override
