@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.flyra.examples.simple_java_angular_jwt.model.SimpleMessage;
+import br.com.flyra.examples.simple_java_angular_jwt.model.SimpleToken;
 import br.com.flyra.examples.simple_java_angular_jwt.model.User;
 import br.com.flyra.examples.simple_java_angular_jwt.util.JWTUtil;
 
@@ -20,7 +22,7 @@ public class LoginServlet extends HttpServlet {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2496313827330700514L;
 
 	private static final String username = "admin";
 	private static final String password = "abc123";
@@ -31,22 +33,24 @@ public class LoginServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		User userRequest = getUserFromRequest(request);
-		String token = null;
+
+		response.setContentType("application/json");
+		response.setCharacterEncoding("utf-8");
 
 		if (username.equals(userRequest.getUsername())
 				&& password.equals(userRequest.getPassword())) {
 
-			token = JWTUtil.createToken(username);
+			SimpleToken st = new SimpleToken(JWTUtil.createToken(userRequest
+					.getUsername()));
 
 			response.setStatus(HttpServletResponse.SC_OK);
-			response.getWriter().print(token);
+			response.getWriter().print(gson.toJson(st));
 		} else {
-			String jsonStr = "{\"msg\": \"Username or password incorrect.\"}";
+			SimpleMessage sm = new SimpleMessage(
+					"Username or password incorrect");
 
-			response.setContentType("application/json");
-			response.setCharacterEncoding("utf-8");
 			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-			response.getWriter().print(jsonStr);
+			response.getWriter().print(gson.toJson(sm));
 		}
 
 	}
