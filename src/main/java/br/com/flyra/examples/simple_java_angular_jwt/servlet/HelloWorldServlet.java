@@ -21,7 +21,7 @@ public class HelloWorldServlet extends HttpServlet {
 		response.setContentType("application/json");
 		response.setCharacterEncoding("utf-8");
 
-		String jsonStr = "{\"msg\": \"Hello World!\"}";
+		String jsonStr = "{\"msg\": \"Ola Voce Esta logado\"}";
 
 		response.getWriter().print(jsonStr);
 	}
