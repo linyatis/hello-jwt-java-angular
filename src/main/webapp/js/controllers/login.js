@@ -11,8 +11,8 @@
 		vm.auth = function() {
 			logar.post(vm.user).then(function(res) {
 				if (res.data) {
-					storage.put(res.data);
-					$rootScope.user = jwtHelper.decodeToken(res.data);
+					storage.put(res.data.token);
+					$rootScope.user = jwtHelper.decodeToken(res.data.token);
 					vm.authorized = true;					
 					location.reload();
 				} 					
