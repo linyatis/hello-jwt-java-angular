@@ -4,12 +4,14 @@ import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SignatureException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 import com.auth0.jwt.JWTSigner;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.JWTVerifyException;
+import com.auth0.jwt.internal.org.apache.commons.codec.binary.Base64;
 
 public class JWTUtil {
 
@@ -17,7 +19,8 @@ public class JWTUtil {
 
 	/**
 	 * 
-	 * @param username Custom param for the middle part of the token.
+	 * @param username
+	 *            Custom param for the middle part of the token.
 	 * @return The token string.
 	 */
 	public static String createToken(String username) {
@@ -36,7 +39,8 @@ public class JWTUtil {
 
 	/**
 	 * 
-	 * @param The token string to be decoded.
+	 * @param The
+	 *            token string to be decoded.
 	 * @return A map with the token params.
 	 * @throws InvalidKeyException
 	 * @throws NoSuchAlgorithmException
@@ -45,13 +49,19 @@ public class JWTUtil {
 	 * @throws IOException
 	 * @throws JWTVerifyException
 	 */
-	public static Map<String, Object> decode(String token)
-			throws InvalidKeyException, NoSuchAlgorithmException,
-			IllegalStateException, SignatureException, IOException,
-			JWTVerifyException {
+	public static Map<String, Object> decode(String token) {
+
 		JWTVerifier verifier = new JWTVerifier(SECRET);
 
-		Map<String, Object> map = verifier.verify(token);
+		Map<String, Object> map = null;
+		try {	
+			map = verifier.verify(token);
+		} catch (InvalidKeyException | NoSuchAlgorithmException
+				| IllegalStateException | SignatureException | IOException
+				| JWTVerifyException e) {
+
+			e.printStackTrace();
+		}
 
 		return map;
 	}
