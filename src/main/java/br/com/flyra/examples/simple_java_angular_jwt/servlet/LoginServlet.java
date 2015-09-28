@@ -38,7 +38,6 @@ public class LoginServlet extends HttpServlet {
 
 			token = JWTUtil.createToken(username);
 
-			response.setHeader("authorization", token);
 			response.setStatus(HttpServletResponse.SC_OK);
 			response.getWriter().print(token);
 		} else {
