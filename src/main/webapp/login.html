@@ -7,14 +7,15 @@
 		<md-input-container> <label>PassWord</label> <input
 			type="password" ng-model="vm.user.password"> </md-input-container>
 		<md-button class="md-raised md-primary">Logar</md-button>
+		<span>{{vm.msg}}</span>
 	</form>
 	<div ng-if="vm.authorized">
 		<p>Ola {{user.user}} voce esta logado</p>
 		<md-button class="md-raised md-warn"  ng-click="vm.sair()">sair</md-button>
 	</div>
 	<div ng-controller="HelloCtrl as vm">
-		<md-button ng-click="vm.ola()" class="md-warn md-raised md-hue-2">Rota restrita</md-button>
-		<span class="md-warn">{{vm.msg}}</span>
+		<md-button ng-click="vm.ola($event)" class="md-warn md-raised md-hue-2">Rota restrita</md-button>
+		<img ng-if="vm.img" ng-src={{vm.img}} >
 	</div>
 	</md-content>
 </div>

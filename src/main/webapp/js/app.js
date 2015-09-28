@@ -7,14 +7,8 @@
 							url : '/',
 							templateUrl : 'login.html',
 							controller : 'LoginCtrl'
-						}).state('personal', {
-							url : '/ola',
-							templateUrl : 'personal.html',
-							controller : 'PersonalController'
-						}).state('sair', {
-							url : '/out',
-							templateUrl : 'out.html'
 						});
+						
 						$urlRouterProvider.otherwise('/');
 				}])
 				.run(['$http' , '$rootScope' ,'jwtHelper',
