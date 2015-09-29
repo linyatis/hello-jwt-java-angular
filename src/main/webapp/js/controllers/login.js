@@ -2,21 +2,26 @@
 	'use strict';
 	angular.module('login').controller('LoginCtrl', LoginCtrl);
 
-	LoginCtrl.$inject = [ 'logar', 'storage', '$log', '$state', '$rootScope','jwtHelper'];
+	LoginCtrl.$inject = [ 'authenticationService', 'storage', '$state',
+			'$rootScope', 'jwtHelper' ];
 
-	function LoginCtrl(logar, storage, $log, $state, $rootScope, jwtHelper) {
+	function LoginCtrl(authenticationService, storage, $state, $rootScope,
+			jwtHelper) {
 		var vm = this;
+
+		vm.user = {};
+
 		vm.authorized = storage.get() !== null ? true : false;
 
 		vm.auth = function() {
-			logar.post(vm.user).then(function(res) {
+			authenticationService.login(vm.user).then(function(res) {
 				if (res.data) {
 					storage.put(res.data.token);
 					$rootScope.user = jwtHelper.decodeToken(res.data.token);
-					vm.authorized = true;					
+					vm.authorized = true;
 					location.reload();
-				} 					
-				
+				}
+
 			}, function err(data) {
 				vm.msg = data.statusText;
 			});
