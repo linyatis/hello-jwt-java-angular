@@ -1,10 +1,10 @@
 (function() {
 	'use strict';
-	angular.module('login').factory('storage', store);
+	angular.module('login').factory('storage', storage);
 
-	store.$inject = [ '$window' ];
+	storage.$inject = [ '$window' ];
 
-	function store($window) {
+	function storage($window) {
 
 		var service = {
 			put : put,
@@ -21,7 +21,7 @@
 		function get() {
 			return $window.localStorage.getItem("auth");
 		}
-		
+
 		function out() {
 			$window.localStorage.removeItem("auth");
 		}
