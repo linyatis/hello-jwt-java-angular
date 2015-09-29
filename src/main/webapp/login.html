@@ -1,21 +1,27 @@
-<div class="md-whiteframe-24dp"  ng-controller="LoginCtrl as vm">
-	<md-content layout-padding layout="column"
-		layout-sm="column">
-	<form ng-if="!vm.authorized" ng-submit="vm.auth()">
-		<md-input-container> <label>User Name</label> <input
-			type="text" ng-model="vm.user.username"> </md-input-container>
-		<md-input-container> <label>PassWord</label> <input
-			type="password" ng-model="vm.user.password"> </md-input-container>
-		<md-button class="md-raised md-primary">Logar</md-button>
-		<span>{{vm.msg}}</span>
-	</form>
-	<div ng-if="vm.authorized">
-		<p>Ola {{user.user}} voce esta logado</p>
-		<md-button class="md-raised md-warn"  ng-click="vm.sair()">sair</md-button>
-	</div>
-	<div ng-controller="HelloCtrl as vm">
-		<md-button ng-click="vm.ola($event)" class="md-warn md-raised md-hue-2">Rota restrita</md-button>
-		<img ng-if="vm.img" ng-src={{vm.img}} >
-	</div>
+<div class="md-whiteframe-24dp" data-ng-controller="LoginCtrl as vm">
+	<md-content data-layout-padding data-layout="column"
+		data-layout-sm="column">
+		<form data-ng-if="!vm.authorized" data-ng-submit="vm.auth()">
+			<md-input-container>
+				<label>User Name</label>
+				<input type="text" data-ng-model="vm.user.username">
+			</md-input-container>
+			<md-input-container>
+				<label>PassWord</label>
+				<input type="password" data-ng-model="vm.user.password">
+			</md-input-container>
+			<md-button class="md-raised md-primary">Logar</md-button>
+			<span>{{vm.msg}}</span>
+		</form>
+		<div data-ng-if="vm.authorized">
+			<p>Ola {{user.user}} voce esta logado</p>
+			<md-button class="md-raised md-warn"
+			 data-ng-click="vm.sair()">sair</md-button>
+		</div>
+		<div data-ng-controller="HelloCtrl as vm">
+			<md-button data-ng-click="vm.ola($event)"
+			 class="md-warn md-raised md-hue-2">Rota restrita</md-button>
+			<img data-ng-if="vm.img" data-ng-src={{vm.img}}>
+		</div>
 	</md-content>
 </div>
