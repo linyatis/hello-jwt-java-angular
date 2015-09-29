@@ -13,7 +13,7 @@
 		return service;
 		
 		function login(data) {
-			return $http.post('/simple-java-angular-jwt/api/login', data);
+			return $http.post('api/login', data);
 		}
 
 	}
