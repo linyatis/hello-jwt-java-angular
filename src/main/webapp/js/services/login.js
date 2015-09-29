@@ -1,24 +1,19 @@
 (function() {
 	'use strict';
-	angular.module('login').factory('logar', logar);
+	angular.module('login').factory('authenticationService', authenticationService);
 
-	logar.$inject = [ '$http' ];
+	authenticationService.$inject = [ '$http' ];
 
-	function logar($http) {
+	function authenticationService($http) {
 
 		var service = {
-			post : post,
-			get : get
+			login : login
 		};
 
 		return service;
 		
-		function post(body) {
-			return $http.post('/simple-java-angular-jwt/api/login', JSON.stringify(body));
-		}
-		
-		function get(url) {
-			return $http.get(url);
+		function login(data) {
+			return $http.post('/simple-java-angular-jwt/api/login', data);
 		}
 
 	}
